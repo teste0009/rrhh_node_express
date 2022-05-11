@@ -1,3 +1,7 @@
+
+ssh enzo@linuxserver
+
+
 1) On project folder:
 
   npx express-generator --ejs
@@ -33,3 +37,20 @@
 
 
 4)  sudo npm install -g --save sequelize sequelize-cli
+
+
+5) en .sequelizerc
+const path = require('path')
+
+module.exports = {
+  config: path.resolve('./database/config', 'config.js'),
+  'models-path': path.resolve('./database/models'),
+  'seeders-path': path.resolve('./database/seeders'),
+  'migrations-path': path.resolve('./database/migrations'),
+}
+
+
+6)  sudo npm install --save mysql2
+
+
+7)  sudo sequelize init
