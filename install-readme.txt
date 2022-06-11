@@ -32,7 +32,7 @@ ssh enzo@linuxserver
 
 
 3)
-   run the app:
+   run the app: (On Project Folder)
      $ DEBUG=rrhh-node-express:* npm start
 
 
@@ -43,7 +43,7 @@ ssh enzo@linuxserver
 const path = require('path')
 
 module.exports = {
-  config: path.resolve('./database/config', 'config.js'),
+  config: path.resolve('./database/config', 'config.json'),
   'models-path': path.resolve('./database/models'),
   'seeders-path': path.resolve('./database/seeders'),
   'migrations-path': path.resolve('./database/migrations'),
