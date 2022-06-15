@@ -7,5 +7,10 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <p>From <%= name %></p>
+    <p>Animal <%= animals[1] %></p>
+    <% animals.forEach(animal => { %>
+      <%= animal %><br/>
+    <% }) %>
   </body>
 </html>
