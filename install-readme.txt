@@ -36,14 +36,27 @@ ssh enzo@linuxserver
      $ DEBUG=rrhh-node-express:* npm start
 
 
-4)  sudo npm install -g --save sequelize sequelize-cli
+4)  sudo npm install -g --save sequelize sequelize-cli (NO!!)
+
+    From: https://stackoverflow.com/questions/51941168/error-cannot-find-module-sequelize
+
+    if do it globally
+
+    sudo npm install -g sequelize-cli
+    sudo npm install -g sequelize
+
+
+    if do it locally
+
+    sudo npm install --save sequelize-cli
+    sudo npm install --save sequelize
 
 
 5) en .sequelizerc
 const path = require('path')
 
 module.exports = {
-  config: path.resolve('./database/config', 'config.json'),
+  config: path.resolve('./database/config', 'config.js'),
   'models-path': path.resolve('./database/models'),
   'seeders-path': path.resolve('./database/seeders'),
   'migrations-path': path.resolve('./database/migrations'),
