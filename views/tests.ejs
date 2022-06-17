@@ -12,9 +12,25 @@
     <% animals.forEach(animal => { %>
       <%= animal %><br/>
     <% }) %>
-    <p>Ciudades:</p>
-    <% ciudades.forEach(ciudad => { %>
-      <%= ciudad.id %> - <%= ciudad.nombre %><br/>
-    <% }) %>
+
+    <% if (ciudades) { %>
+      <p>Ciudades en DB:</p>
+      <% ciudades.forEach(ciudad => { %>
+        <%= ciudad.id %> - <%= ciudad.nombre %><br/>
+      <% }) %>
+    <% } %>
+
+    <% if (departamentos) { %>
+      <p>Departamentos en DB:</p>
+      <% departamentos.forEach(departamento => { %>
+        <%= departamento.id_ciudad %> - <%= departamento.codigo %> - <%= departamento.area %> - <%= departamento.descripcion %><br/>
+      <% }) %>
+    <% } %>
+
+    <% if (error) { %>
+      <p>Error in SQL Query: <%= error %></p>
+    <% } %>
+
+    <p>Saludo: <%= saludo %></p>
   </body>
 </html>

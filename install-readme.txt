@@ -42,8 +42,8 @@ ssh enzo@linuxserver
 
     if do it globally
 
-    sudo npm install -g sequelize-cli
-    sudo npm install -g sequelize
+    sudo npm install -g sequelize-cli (NO!!)
+    sudo npm install -g sequelize (NO!!)
 
 
     if do it locally
