@@ -12,8 +12,8 @@ router.get('/', function(req, res, next) {
       res.render('tests', { title: 'Mundo', name: 'Enzo', animals: ['Cat', 'Dog', 'Wolf'], ciudades, departamentos, saludo: hola, error: false });
     })
     .catch( error => {
-      console.log(error);
-      res.render('tests', { title: 'Mundo', name: 'Enzo', animals: ['Cat', 'Dog', 'Wolf'], ciudades: false, saludo: hola, error: error });
+      // console.log(error);
+      res.render('tests', { title: 'Mundo', name: 'Enzo', animals: ['Cat', 'Dog', 'Wolf'], ciudades: false, departamentos: false, saludo: hola, error: error });
     })
     .finally( () => {
       console.log('Finally!');
