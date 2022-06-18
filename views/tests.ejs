@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1><%= pageTitle %></h1>
+    <p>Welcome to <%= pageTitle %></p>
     <p>From <%= name %></p>
     <p>Animal <%= animals[1] %></p>
     <% animals.forEach(animal => {
@@ -30,5 +23,3 @@
     if (error) { %><p>Error in SQL Query: <%= error %></p><% } %>
 
     <p>Saludo: <%= saludo %></p>
-  </body>
-</html>
