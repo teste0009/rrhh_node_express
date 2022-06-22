@@ -39,6 +39,9 @@ const ciudades = db['Ciudad'].findAll({
     // id: 2
   }
 });
-const departamentos = db['Departamento'].findAll({ where: {}}); // codigo: 110
+const departamentos = db['Departamento'].findAll({
+  where: {},
+  include: [{association:"Ciudad"}], // , {association: "actores"}
+}); // codigo: 110
 
 module.exports = {ciudades, hola, departamentos};

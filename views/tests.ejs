@@ -16,7 +16,7 @@
     if (departamentos) { %>
       <p>Departamentos en DB:</p>
       <% departamentos.forEach(departamento => {
-        %><%= departamento.id_ciudad %> - <%= departamento.codigo %> - <%= departamento.area %> - <%= departamento.descripcion %><br/>
+        %><%= departamento.id_ciudad %> - <%= departamento.Ciudad.nombre %> - <%= departamento.codigo %> - <%= departamento.area %> - <%= departamento.descripcion %><br/>
       <% })
     }
 

@@ -41,5 +41,6 @@ module.exports = function(sequelize, dataTypes){
     });
     */
   }
+
   return Departamento;
 }

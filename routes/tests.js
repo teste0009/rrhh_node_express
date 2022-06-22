@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
   Promise.all([ciudades, departamentos])
     .then( results => { // console.log(results);
       const [ciudades, departamentos] = results; // console.log(ciudades);
+      console.log(departamentos);
+      console.log(departamentos[0].Ciudad);
       // res.render('tests', { pageTitle, name, animals, ciudades, departamentos, saludo: hola, error: false });
       res.render('layout', { viewFile: 'tests', pageTitle, name, animals, ciudades, departamentos, saludo: hola, error: false });
     })

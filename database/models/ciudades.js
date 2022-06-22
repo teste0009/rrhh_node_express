@@ -2,15 +2,16 @@ module.exports = function(sequelize, dataTypes) {
   let alias = "Ciudad"
 
   let cols = {
-      id: {
-          type: dataTypes.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
-      },
-      nombre:{
-          type: dataTypes.STRING
-      }
+    id: {
+      type: dataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    nombre:{
+      type: dataTypes.STRING
+    }
   }
+
   let config = {
       tableName: "ciudades",
       timestamps: false
@@ -20,10 +21,10 @@ module.exports = function(sequelize, dataTypes) {
 
   Ciudad.associate = function(models) {
     Ciudad.hasMany(models.Departamento, { // 1 to many
-       as: "Departamento",
-       foreignKey: "id_ciudad"
-      });
-
+      as: "Departamento",
+      foreignKey: "id_ciudad"
+    });
   }
+
   return Ciudad;
 }
