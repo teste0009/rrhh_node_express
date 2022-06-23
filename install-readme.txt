@@ -36,7 +36,9 @@ ssh enzo@linuxserver
      $ DEBUG=rrhh-node-express:* npm start
 
 
-4)  sudo npm install -g --save sequelize sequelize-cli (NO!!)
+4)  On Project Folder
+
+    sudo npm install -g --save sequelize sequelize-cli (NO!!)
 
     From: https://stackoverflow.com/questions/51941168/error-cannot-find-module-sequelize
 
@@ -63,7 +65,26 @@ module.exports = {
 }
 
 
-6)  sudo npm install --save mysql2
+6)  On Project Folder
+    sudo npm install --save mysql2
 
 
-7)  sudo sequelize init
+7)  On Project Folder
+    sudo sequelize init
+
+
+8)  On Project Folder (?)
+    sudo npm install redis (?)
+    sudo apt install redis-server (?)
+
+    sudo service redis-server stop
+
+9)  On Project Folder
+    sudo npm install express-session
+
+10) On Project Folder
+    sudo npm install redis connect-redis express-session
+
+11) https://stackoverflow.com/questions/25515166/redis-daemon-not-creating-a-pid-file
+
+12) https://stackoverflow.com/questions/39796228/req-session-is-undefined-using-express-session

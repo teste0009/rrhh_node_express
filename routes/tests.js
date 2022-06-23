@@ -8,11 +8,16 @@ router.get('/', function(req, res, next) {
 
   const {ciudades, departamentos, hola} = require('../controller/tests.js');
 
-  Promise.all([ciudades, departamentos])
+  const user = require('../controller/User.js');
+
+  console.log(req.session);
+
+  Promise.all([ciudades, departamentos, user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)]) // enzo@gmail.com
     .then( results => { // console.log(results);
       const [ciudades, departamentos] = results; // console.log(ciudades);
-      console.log(departamentos);
-      console.log(departamentos[0].Ciudad);
+      // console.log(req.session);
+      // console.log(departamentos);
+      // console.log(departamentos[0].Ciudad);
       // res.render('tests', { pageTitle, name, animals, ciudades, departamentos, saludo: hola, error: false });
       res.render('layout', { viewFile: 'tests', pageTitle, name, animals, ciudades, departamentos, saludo: hola, error: false });
     })

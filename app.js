@@ -3,12 +3,30 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
+
+// pass the express to the connect redis module
+// allowing it to inherit from session.Store
+var RedisStore = require('connect-redis')(session);
+const redis = require('redis')
+let redisClient = redis.createClient({ legacyMode: true })
+redisClient.connect().catch(console.error)
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var testsRouter = require('./routes/tests');
 
 var app = express();
+
+// Populates req.session BEFORE ROUTES !!!!!!!!!!!!!!
+app.use(session({
+  resave: false, // don't save session if unmodified
+  saveUninitialized: false, // don't create session until something stored
+  secret: 'keyboard dog', // cat
+  // store: new RedisStore({client: redis.createClient('20585', '127.0.0.1')}),
+  store: new RedisStore({client: redisClient}),
+  cookie: ('name', 'value', { maxAge: 3600 * 1000, secure: false })
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
