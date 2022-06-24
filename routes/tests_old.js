@@ -1,21 +1,12 @@
-const db = require('../database/models');
+var express = require('express');
+var router = express.Router();
 
-const hola = 'Hola Mundo';
-const ciudades = db['Ciudad'].findAll({
-  where: {
-    // id: 2
-  }
-});
-const departamentos = db['Departamento'].findAll({
-  where: {},
-  include: [{association:"Ciudad"}], // , {association: "actores"}
-}); // codigo: 110
-
-let testController = (req, res, next) => {
+/* GET Tests page. */
+router.get('/', function(req, res, next) {
 
   let [pageTitle, name, animals] = ['Mundo', 'Enzo', ['Cat', 'Dog', 'Wolf']]
 
-  // const {ciudades, departamentos, hola} = require('../controller/tests.js'); NO USADO, FUERA DE CONTEXTO
+  const {ciudades, departamentos, hola} = require('../controller/tests.js');
 
   // const user = require('../controller/User.js');
 
@@ -26,10 +17,10 @@ let testController = (req, res, next) => {
   // , req.user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)
   // enzo@gmail.com
 
-  Promise.all([ciudades, departamentos, req.user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)])
+  Promise.all([ciudades, departamentos])
     .then( results => { // console.log(results);
       const [ciudades, departamentos] = results; // console.log(ciudades);
-      console.log('- - - - - - -'); console.log(req.session);console.log('- - - - - - -');
+      // console.log(req.session);
       // console.log(departamentos);
       // console.log(departamentos[0].Ciudad);
       // res.render('tests', { pageTitle, name, animals, ciudades, departamentos, saludo: hola, error: false });
@@ -44,6 +35,6 @@ let testController = (req, res, next) => {
       console.log('Finally!');
     });
 
-}
+});
 
-module.exports = testController;
+module.exports = router;

@@ -21,12 +21,16 @@ var app = express();
 // Populates req.session BEFORE ROUTES !!!!!!!!!!!!!!
 app.use(session({
   resave: false, // don't save session if unmodified
-  saveUninitialized: false, // don't create session until something stored
+  saveUninitialized: true, // don't create session until something stored
   secret: 'keyboard dog', // cat
   // store: new RedisStore({client: redis.createClient('20585', '127.0.0.1')}),
   store: new RedisStore({client: redisClient}),
   cookie: ('name', 'value', { maxAge: 3600 * 1000, secure: false })
 }));
+
+app.locals.site = require('./config/site');
+app.request.user = require('./controller/User');
+app.request.user.getSession(app.request);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,8 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testsRouter);
-
-app.locals.site = require('./config/site');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

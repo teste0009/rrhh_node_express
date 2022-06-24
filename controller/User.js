@@ -17,25 +17,34 @@ const User = new function() {
   this.isLogged = () => this.bIsLogged;
 
 
-  this.getSession = () => {
-    ;
+  this.getSession = (req) => {
+    if (req.session) {
+      console.log('* * * * * * *'); console.log(req.session); console.log('* * * * * * *');
+      if (req.session['user']) {
+        if (req.session['user']['nombre']) {
+          this.nombre = req.session['user']['nombre'];
+          if (req.session['user']['email']) {
+            this.email = req.session['user']['email'];
+            this.bIsLogged = true;
+          }
+        }
+      }
+    }
   }
 
   this.setSession = (_userLogin, req) => {
     if (_userLogin) {
-      // console.log(_userLogin);
-      console.log('[');
-      console.log(req.session);
-      console.log(']');
+      console.log('['); console.log(req.session); console.log(']');
       req.session.user = {
         nombre: _userLogin.nombre,
         email: _userLogin.email
       }
-      console.log('['); console.log(req.session.user.nombre); console.log(']');
+      req.session.save();
+      console.log('['); console.log(req.session); console.log(']');
       this.nombre = _userLogin.nombre;
       this.email = _userLogin.email;
       this.bIsLogged = true;
-      console.log('['); console.log(req.session.user.nombre); console.log(']');
+      console.log('[' + req.session.user.nombre + '] logueado...');
     }
     else {
       this.loginMessage = 'Login Incorecto';
@@ -46,7 +55,7 @@ const User = new function() {
     const _userLogin = this.db['Usuario'].findOne({
       where: {email: email, password: password}
     });
-    _userLogin
+    return _userLogin
       .then ( result => {
         this.setSession(result, req);
       })
