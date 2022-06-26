@@ -88,3 +88,6 @@ module.exports = {
 11) https://stackoverflow.com/questions/25515166/redis-daemon-not-creating-a-pid-file
 
 12) https://stackoverflow.com/questions/39796228/req-session-is-undefined-using-express-session
+
+
+13) sudo npm install nodemon -g

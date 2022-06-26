@@ -29,12 +29,27 @@ app.use(session({
 }));
 
 app.locals.site = require('./config/site');
-app.request.user = require('./controller/User');
-app.request.user.getSession(app.request);
+app.request.user = require('./controllers/User');
+app.locals.user = app.request.user;
+// app.locals.user.getSession(app.request);
+// app.request.locals = app.request.user;
+// app.request.user.getSession(app.request);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// From: https://expressjs.com/en/guide/using-middleware.html
+// This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
+app.use(function(req, res, next) {
+  if (req.method === 'GET') {
+    // Do some code
+    console.log(req);
+    req.user.getSession(req);
+    console.log('Time: ', Date.now());
+  }
+  next();
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -61,5 +76,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

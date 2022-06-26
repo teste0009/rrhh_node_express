@@ -18,6 +18,7 @@ const User = new function() {
 
 
   this.getSession = (req) => {
+    // console.log('* * * * * * *'); console.log(req.session); console.log('* * * * * * *');
     if (req.session) {
       console.log('* * * * * * *'); console.log(req.session); console.log('* * * * * * *');
       if (req.session['user']) {
@@ -66,4 +67,4 @@ const User = new function() {
 
 }();
 
-module.exports =  User;
+module.exports = User;

@@ -13,7 +13,7 @@ const departamentos = db['Departamento'].findAll({
 
 let testController = (req, res, next) => {
 
-  let [pageTitle, name, animals] = ['Mundo', 'Enzo', ['Cat', 'Dog', 'Wolf']]
+  let [pageTitle, name, animals] = ['Tests', 'Enzo', ['Cat', 'Dog', 'Wolf']]
 
   // const {ciudades, departamentos, hola} = require('../controller/tests.js'); NO USADO, FUERA DE CONTEXTO
 
@@ -21,7 +21,8 @@ let testController = (req, res, next) => {
 
   // console.log(express);
   // console.log(req.user);
-  console.log(req.session);
+  // console.log(req.session);
+  // req.user.getSession(req);
 
   // , req.user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)
   // enzo@gmail.com
@@ -29,7 +30,7 @@ let testController = (req, res, next) => {
   Promise.all([ciudades, departamentos, req.user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)])
     .then( results => { // console.log(results);
       const [ciudades, departamentos] = results; // console.log(ciudades);
-      console.log('- - - - - - -'); console.log(req.session);console.log('- - - - - - -');
+      // console.log('- - - - - - -'); console.log(req.session);console.log('- - - - - - -');
       // console.log(departamentos);
       // console.log(departamentos[0].Ciudad);
       // res.render('tests', { pageTitle, name, animals, ciudades, departamentos, saludo: hola, error: false });

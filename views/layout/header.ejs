@@ -1,16 +1,14 @@
   <header>
-    <h1><%= siteName %> - <%= pageTitle %></h1>
+    <h1><%= site.name %> - <%= pageTitle %></h1>
     <nav>
-<?php
-  if ($app->user->isLogged()) {
-    foreach ($app->_nav_options as $arrKey => $_option) {
-      $href = $app->http_host.$app->base_folder.$_option['route'];
-      $name = $_option['name'];
-?>
-      <a href="<?php echo $href; ?>"><?php echo $name ?></a>
-<?php
-    }
+<%
+  if (user.isLogged()) {
+    site.navOptions.forEach(navOption => {
+      let href = navOption['route'];
+      let name = navOption['name'];
+%>      <a href="<%= href %>"><%= name %></a>
+<%
+    })
   }
-?>
-    </nav>
+%>    </nav>
   </header>
