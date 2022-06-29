@@ -12,9 +12,10 @@ const redis = require('redis')
 let redisClient = redis.createClient({ legacyMode: true })
 redisClient.connect().catch(console.error)
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var testsRouter = require('./routes/tests');
+var indexRouter   = require('./routes/index');
+var usersRouter   = require('./routes/users');
+var testsRouter   = require('./routes/tests');
+var logoutRouter  = require('./routes/logout');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(session({
   cookie: ('name', 'value', { maxAge: 3600 * 1000, secure: false })
 }));
 
+// Define Global Vars BEFORE ROUTES !!!!!!!!!!!!!!
 app.locals.site = require('./config/site');
 app.request.user = require('./controllers/User');
 app.locals.user = app.request.user;
@@ -39,13 +41,26 @@ app.locals.user = app.request.user;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Define Routes Hook BEFORE ROUTES !!!!!!!!!!!!!!
 // From: https://expressjs.com/en/guide/using-middleware.html
 // This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
 app.use(function(req, res, next) {
-  if (req.method === 'GET') {
+  if (req.method === 'GET' || req.method === 'POST') {
     // Do some code
-    console.log(req);
-    req.user.getSession(req);
+    console.dir(req.originalUrl);
+    console.dir(req.baseUrl);
+    console.dir(req.path);
+    // console.log(app._router.stack);
+    // console.log(app.locals.site);
+
+    let user = req.user;
+    user.getSession(req);
+
+    if ( ! user.isLogged() && ! user.bAuthRoute(req.path)) {
+      console.log('* * * * * Redirect to / * * * * *');
+      // res.redirect('/');
+    }
+
     console.log('Time: ', Date.now());
   }
   next();
@@ -60,6 +75,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testsRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -27,7 +27,7 @@ let testController = (req, res, next) => {
   // , req.user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)
   // enzo@gmail.com
 
-  Promise.all([ciudades, departamentos, req.user.login('admin@email.com', '1B287D7CFA9BAD74FE30CBBC5DBA2D05', req)])
+  Promise.all([ciudades, departamentos])
     .then( results => { // console.log(results);
       const [ciudades, departamentos] = results; // console.log(ciudades);
       // console.log('- - - - - - -'); console.log(req.session);console.log('- - - - - - -');
