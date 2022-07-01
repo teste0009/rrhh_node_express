@@ -26,8 +26,7 @@ const User = new function() {
       bAuthRouteResult = true;
     }
     else {
-      this.site.navOptions.forEach(navOption => {
-        // console.log(navOption.route);
+      this.site.navOptions.forEach(navOption => { // console.log(navOption.route);
         if (reqPath == navOption.route) {
           bAuthRouteResult = false;
         }
@@ -41,18 +40,31 @@ const User = new function() {
   this.getSession = (req) => {
     // console.log('* * * * * * *'); console.log(req.session); console.log('* * * * * * *');
     if (req.session) {
-      console.log('* * * * * * *'); console.log(req.session); console.log('* * * * * * *');
+      // console.log('* * * * * * *'); console.log(req.session); console.log('* * * * * * *');
       if (req.session['user']) {
         if (req.session['user']['nombre']) {
           this.nombre = req.session['user']['nombre'];
           if (req.session['user']['email']) {
             this.email = req.session['user']['email'];
             this.bIsLogged = true;
+            req.session.user = {
+              nombre: this.getNombre(),
+              email: this.getEmail()
+            }
+            req.session.save();
           }
         }
       }
-      console.log('User: [' + this.getNombre() + ']');
+      else {
+        this.nombre = "Guest";
+        this.email = "";
+        this.bIsLogged = false;
+        this.loginMessage = '';
+      }
+
     }
+    console.log('* - * - * - *'); console.log(req.session); console.log('* - * - * - *');
+    console.log('User: [' + this.getNombre() + ']');
   };
 
   this.setSession = (_userLogin, req) => {
@@ -88,6 +100,7 @@ const User = new function() {
     return _userLogin
       .then ( result => {
         this.setSession(result, req);
+        return result;
       })
       .catch ( error => {})
       .finally();

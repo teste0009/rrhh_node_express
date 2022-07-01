@@ -21,12 +21,13 @@ var app = express();
 
 // Populates req.session BEFORE ROUTES !!!!!!!!!!!!!!
 app.use(session({
-  resave: false, // don't save session if unmodified
+  resave: true, // don't save session if unmodified
   saveUninitialized: true, // don't create session until something stored
   secret: 'keyboard dog', // cat
+  rolling: true,
   // store: new RedisStore({client: redis.createClient('20585', '127.0.0.1')}),
-  store: new RedisStore({client: redisClient}),
-  cookie: ('name', 'value', { maxAge: 3600 * 1000, secure: false })
+  // store: new RedisStore({client: redisClient}),
+  cookie: ('name', 'value', { maxAge: 10 * 1000, secure: false }) // 3600 * 1000 = 60 min * 60 seg * 1000 ms
 }));
 
 // Define Global Vars BEFORE ROUTES !!!!!!!!!!!!!!
@@ -45,7 +46,7 @@ app.set('view engine', 'ejs');
 // From: https://expressjs.com/en/guide/using-middleware.html
 // This example shows a middleware function with no mount path. The function is executed every time the app receives a request.
 app.use(function(req, res, next) {
-  if (req.method === 'GET' || req.method === 'POST') {
+  // if (req.method === 'GET' || req.method === 'POST') {
     // Do some code
     console.dir(req.originalUrl);
     console.dir(req.baseUrl);
@@ -62,7 +63,8 @@ app.use(function(req, res, next) {
     }
 
     console.log('Time: ', Date.now());
-  }
+  // }
+
   next();
 });
 
