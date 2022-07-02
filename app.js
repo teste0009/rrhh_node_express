@@ -12,10 +12,14 @@ const redis = require('redis')
 let redisClient = redis.createClient({ legacyMode: true })
 redisClient.connect().catch(console.error)
 
-var indexRouter   = require('./routes/index');
 var usersRouter   = require('./routes/users');
 var testsRouter   = require('./routes/tests');
-var logoutRouter  = require('./routes/logout');
+
+var indexRouter           = require('./routes/index');
+var empleadosRouter       = require('./routes/empleados');
+// var evaluacionesRouter    = require('./routes/evaluaciones');
+// var rotacionRouter        = require('./routes/rotacion');
+var logoutRouter          = require('./routes/logout');
 
 var app = express();
 
@@ -27,7 +31,7 @@ app.use(session({
   rolling: true,
   // store: new RedisStore({client: redis.createClient('20585', '127.0.0.1')}),
   // store: new RedisStore({client: redisClient}),
-  cookie: ('name', 'value', { maxAge: 10 * 1000, secure: false }) // 3600 * 1000 = 60 min * 60 seg * 1000 ms
+  cookie: ('name', 'value', { maxAge: 10 * 60 * 1000, secure: false }) // 3600 * 1000 = 60 min * 60 seg * 1000 ms
 }));
 
 // Define Global Vars BEFORE ROUTES !!!!!!!!!!!!!!
@@ -59,7 +63,7 @@ app.use(function(req, res, next) {
 
     if ( ! user.isLogged() && ! user.bAuthRoute(req.path)) {
       console.log('* * * * * Redirect to / * * * * *');
-      // res.redirect('/');
+      res.redirect('/');
     }
 
     console.log('Time: ', Date.now());
@@ -74,10 +78,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testsRouter);
-app.use('/logout', logoutRouter);
+
+app.use('/',              indexRouter);
+app.use('/empleados',     empleadosRouter);
+//app.use('/evaluaciones',  evaluacionesRouter);
+//app.use('/rotacion',      rotacionRouter);
+app.use('/logout',        logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

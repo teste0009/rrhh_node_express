@@ -1,0 +1,13 @@
+<h1><%= pageTitle %></h1>
+
+<!--
+dfhdflñhkfdlñ
+-->
+
+<% if (empleados) { %>
+  <!--p>Empleados en DB:</p-->
+  <% empleados.forEach(empleado => {
+    %><%= empleado.id_ciudad %> - <%= empleado.Ciudad.nombre %>
+    - <%= empleado.nro_legajo %> - <%= empleado.nombres %> - <%= empleado.apellidos %><br/>
+  <% })
+} %>

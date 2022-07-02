@@ -24,6 +24,10 @@ module.exports = function(sequelize, dataTypes) {
       as: "Departamento",
       foreignKey: "id_ciudad"
     });
+    Ciudad.hasMany(models.Empleados, { // 1 to many
+      as: "Empleados",
+      foreignKey: "id_ciudad"
+    });
   }
 
   return Ciudad;
